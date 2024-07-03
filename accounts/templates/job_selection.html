@@ -1,4 +1,3 @@
-<!-- templates/accounts/job_selection.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,14 +43,6 @@
             {% for job in job_categories %}
                 <div id="{{ job }}" class="job-button" onclick="selectJob('{{ job }}')">{{ job }}</div>
             {% endfor %}
-        </div>
-        <div>
-            <label for="start_year">입사년도:</label>
-            <input type="number" id="start_year" name="start_year" min="1900" max="2100" required>
-        </div>
-        <div>
-            <label for="end_year">퇴직년도:</label>
-            <input type="number" id="end_year" name="end_year" min="1900" max="2100" required>
         </div>
         <button type="submit">Save</button>
     </form>
