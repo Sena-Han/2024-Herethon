@@ -1,0 +1,22 @@
+<!-- templates/accounts/verify_code.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Verification Code</title>
+</head>
+<body>
+    <h1>코드를 보내드렸습니다</h1>
+    <h3><p style="color: gray;">인증을 위해 아래에 입력해 주세요</p></h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">인증하기</button>
+    </form>
+    <form method="post" action="{% url 'resend_code' %}">
+        {% csrf_token %}
+        <h5>코드를 받지 못했나요?</h5>
+        <button type="submit">다시보내기</button>
+    </form>
+</body>
+</html>

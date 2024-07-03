@@ -1,0 +1,62 @@
+<!-- templates/accounts/job_selection.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Selection</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .job-button {
+            flex: 1 0 45%; /* 2 columns with a little gap */
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .job-button.selected {
+            background-color: #f0f0f0;
+            border-color: #000;
+        }
+    </style>
+    <script>
+        function selectJob(job) {
+            document.getElementById('job_category').value = job;
+            document.querySelectorAll('.job-button').forEach(function(button) {
+                button.classList.remove('selected');
+            });
+            document.getElementById(job).classList.add('selected');
+        }
+    </script>
+</head>
+<body>
+    <h1>직무 선택</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" id="job_category" name="job_category" />
+        <div class="container">
+            {% for job in job_categories %}
+                <div id="{{ job }}" class="job-button" onclick="selectJob('{{ job }}')">{{ job }}</div>
+            {% endfor %}
+        </div>
+        <div>
+            <label for="start_year">입사년도:</label>
+            <input type="number" id="start_year" name="start_year" min="1900" max="2100" required>
+        </div>
+        <div>
+            <label for="end_year">퇴직년도:</label>
+            <input type="number" id="end_year" name="end_year" min="1900" max="2100" required>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+
+
+
