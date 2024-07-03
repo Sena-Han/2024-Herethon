@@ -9,6 +9,7 @@ from .models import CustomUser
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 
 JOB_CATEGORIES = [
@@ -81,6 +82,7 @@ def signup_view(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
+@login_required
 def job_selection_view(request):
     if request.method == 'POST':
         job_category = request.POST.get('job_category')
