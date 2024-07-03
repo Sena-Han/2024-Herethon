@@ -10,7 +10,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('profile_picture', 'username', 'password1', 'password2', 'email', 'date_of_birth', 'phone_number')
+        fields = ('profile_picture', 'username', 'password1', 'password2', 'nickname', 'email', 'date_of_birth', 'phone_number')
 
 class EmailVerificationForm(forms.Form):
     email = forms.EmailField()
