@@ -1,0 +1,42 @@
+body {
+  background-image: url("../img/start.jpg");
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-position-y: -30vw;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: absolute;
+  bottom: 0;
+  left: 35vw;
+}
+
+#signupBtn,
+#loginBtn {
+  width: 30vw;
+  height: 4vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1vw;
+
+  color: white;
+  font-size: 1.5vw;
+  font-weight: 300;
+  border-radius: 8px;
+  background-color: #414141;
+}
+
+#loginBtn {
+  margin-bottom: 4vw;
+}

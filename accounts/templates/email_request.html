@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Email Request</title>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Enter your email to start the sign-up process</h2>
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Request Verification Code</button>
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Request Verification Code</button>
     </form>
-</body>
+  </body>
 </html>

@@ -1,0 +1,137 @@
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+  margin-top: 10vw;
+}
+
+.leftpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settext {
+  font-size: 25px;
+  font-weight: 400;
+
+  margin-bottom: 20px;
+}
+
+.setForm {
+  width: 390px;
+  height: 290px;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.setForm label {
+  width: 140px;
+  height: 140px;
+
+  border-radius: 100%;
+  background-color: #d9d9d9;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  z-index: 1;
+}
+
+#user_photo {
+  display: none;
+}
+
+img {
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+
+  position: relative;
+  left: 50px;
+  bottom: 35px;
+}
+
+#saveBtn {
+  color: white;
+  text-decoration: none;
+
+  width: 200px;
+  height: 45px;
+  background-color: #414141;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.text {
+  font-size: 16px;
+  margin: 5px 10px;
+}
+
+input,
+select,
+button {
+  height: 40px;
+  border: 1px solid #b8b8b8;
+  border-radius: 10px;
+  font-size: 16px;
+  padding-left: 15px;
+  outline: none;
+}
+
+select,
+button {
+  height: 44px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#user_password,
+#user_email,
+#user_name,
+#user_phonenum {
+  width: 450px;
+  margin-bottom: 5px;
+}
+
+#user_password_re {
+  width: 310px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#user_password_ch {
+  width: 130px;
+  padding: 0;
+}
+
+#user_birthY {
+  width: 180px;
+  margin-bottom: 5px;
+}
+
+#user_birthM,
+#user_birthD {
+  width: 121px;
+}
+
+#user_startY,
+#user_endY {
+  width: 213px;
+  margin-bottom: 5px;
+}
