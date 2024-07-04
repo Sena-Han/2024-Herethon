@@ -1,12 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/welcome.css' %}" />
+    <title>인증 확인</title>
   </head>
+
   <body>
-    <h1>가입 완료</h1>
-    <h2>환영합니다</h2>
+    <img src="{% static 'img/check_icon.png' %}" class="check_icon" />
+    <div class="welcomeText">환영합니다!</div>
     <a href="{% url 'login' %}">로그인</a>
   </body>
 </html>

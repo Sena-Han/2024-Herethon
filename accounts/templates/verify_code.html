@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/mail2.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/ver_code.css' %}" />
     <title>Enter Verification Code</title>
   </head>
   <body>
@@ -13,21 +13,23 @@
       <div class="t2">인증을 위해 아래에 입력해주세요!</div>
     </div>
 
-    <form method="post">
+    <form method="post" class="form1" onsubmit="return handleSubmit(event)">
       {% csrf_token %}
-      <input type="text" class="inputCode" maxlength="1" id="code1" oninput="moveFocus(this, 'code2')" />
-      <input type="text" class="inputCode" maxlength="1" id="code2" oninput="moveFocus(this, 'code3')" onkeydown="backFocus(event, 'code1')" />
-      <input type="text" class="inputCode" maxlength="1" id="code3" oninput="moveFocus(this, 'code4')" onkeydown="backFocus(event, 'code2')" />
-      <input type="text" class="inputCode" maxlength="1" id="code4" oninput="moveFocus(this, 'code5')" onkeydown="backFocus(event, 'code3')" />
-      <input type="text" class="inputCode" maxlength="1" id="code5" oninput="moveFocus(this, 'code6')" onkeydown="backFocus(event, 'code4')" />
-      <input type="text" class="inputCode" maxlength="1" id="code6" oninput="moveFocus(this, '')" onkeydown="backFocus(event, 'code5')" />
+      <div>
+        <input type="text" class="inputCode" maxlength="1" id="code1" oninput="moveFocus(this, 'code2')" />
+        <input type="text" class="inputCode" maxlength="1" id="code2" oninput="moveFocus(this, 'code3')" onkeydown="backFocus(event, 'code1')" />
+        <input type="text" class="inputCode" maxlength="1" id="code3" oninput="moveFocus(this, 'code4')" onkeydown="backFocus(event, 'code2')" />
+        <input type="text" class="inputCode" maxlength="1" id="code4" oninput="moveFocus(this, 'code5')" onkeydown="backFocus(event, 'code3')" />
+        <input type="text" class="inputCode" maxlength="1" id="code5" oninput="moveFocus(this, 'code6')" onkeydown="backFocus(event, 'code4')" />
+        <input type="text" class="inputCode" maxlength="1" id="code6" oninput="moveFocus(this, '')" onkeydown="backFocus(event, 'code5')" />
+        <input type="hidden" name="code" id="hiddenCode" />
+      </div>
+      <button type="submit" id="authBtn">인증하기</button>
     </form>
-
-    <form method="post" action="{% url 'resend_code' %}">
+    <form method="post" action="{% url 'resend_code' %}" class="form2">
       {% csrf_token %}
       <div class="resend">코드는 받지 못했나요? <button type="submit" id="resend">다시 보내기</button></div>
     </form>
-    <button type="submit" id="authBtn">인증하기</button>
 
     <script>
       // 다음 input으로 포커스를 이동
@@ -46,6 +48,21 @@
         if (event.key === "Backspace" && !event.target.value) {
           document.getElementById(prevInputId).focus();
         }
+      }
+
+      function handleSubmit(event) {
+        combineCode();
+        return true;
+      }
+
+      function combineCode() {
+        const code1 = document.getElementById("code1").value;
+        const code2 = document.getElementById("code2").value;
+        const code3 = document.getElementById("code3").value;
+        const code4 = document.getElementById("code4").value;
+        const code5 = document.getElementById("code5").value;
+        const code6 = document.getElementById("code6").value;
+        document.getElementById("hiddenCode").value = code1 + code2 + code3 + code4 + code5 + code6;
       }
     </script>
   </body>
