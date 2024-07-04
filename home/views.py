@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
+from accounts.models import CustomUser
 from community.models import Post
 from .forms import AdviceForm
 from .models import Advice
@@ -29,10 +30,42 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-# 조언 리스트
+# 조언 검색 & 필터링 리스트
 def advice_list(request):
     advices = Advice.objects.all().order_by('-created_at')
-    return render(request, 'advice_list.html', {'advices': advices})
+
+    job_type_field = CustomUser._meta.get_field('job_type')
+    categories = [
+        '경영/관리', 'IT/인터넷', '연구개발/설계', '마케팅/PR', '전문직', '디자인', '방송/언론', '교육 전문직', '의료전문직', '영업', '건설', '생산/제조', '금융전문직', '생활/서비스', '문화/예술', '조사/분석',
+        '공무원/정치인', '기타전문직'
+    ]
+    if hasattr(job_type_field, 'choices') and job_type_field.choices:
+        categories = [choice[0] for choice in job_type_field.choices]
+
+    selected_category = request.GET.get('category')
+    search_type = request.GET.get('search_type')
+    search_query = request.GET.get('search')
+
+    if selected_category:
+        advices = advices.filter(author__job_type=selected_category)
+
+    if search_query:
+        if search_type == 'title':
+            advices = advices.filter(title__icontains=search_query)
+        elif search_type == 'content':
+            advices = advices.filter(content__icontains=search_query)
+        elif search_type == 'nickname':
+            advices = advices.filter(author__nickname__icontains=search_query)
+
+    # 검색 결과가 없는 경우 메시지 추가
+    if not advices.exists() and (search_query or selected_category):
+        messages.info(request, '검색 결과가 없습니다.')
+
+    return render(request, 'advice_list.html', {
+        'advices': advices,
+        'categories': categories,
+        'selected_category': selected_category,
+    })
 
 
 # 조언 상세
