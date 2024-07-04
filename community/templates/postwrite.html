@@ -64,6 +64,23 @@
             background-color: #0056b3;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryField = document.getElementById('id_category');
+            const hashtagsField = document.getElementById('id_hashtags').parentElement;
+
+            function toggleHashtagsField() {
+                if (categoryField.options[categoryField.selectedIndex].text === 'AMA') {
+                    hashtagsField.style.display = 'block';
+                } else {
+                    hashtagsField.style.display = 'none';
+                }
+            }
+
+            categoryField.addEventListener('change', toggleHashtagsField);
+            toggleHashtagsField();
+        });
+    </script>
 </head>
 <body>
     <div class="container">

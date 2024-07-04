@@ -21,7 +21,11 @@ def post(request):
         elif search_type == 'nickname':
             posts = posts.filter(author__nickname__icontains=search_query)
 
-    return render(request, 'post.html', {'posts': posts, 'categories': categories})
+    return render(request, 'post.html', {
+        'posts': posts,
+        'categories': categories,
+        'selected_category': category_filter
+    })
 
 
 def post_category(request, category_name):
@@ -51,7 +55,6 @@ def postwrite(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-
             return redirect('post')
     else:
         form = PostForm()

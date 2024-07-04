@@ -104,6 +104,10 @@
             <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="fixed-size">
         {% endif %}
         <p>{{ post.content }}</p>
+        {% if post.category.name == "AMA" and post.hashtags %}
+            <p>Hashtags: {{ post.hashtags }}</p>
+        {% endif %}
+        <br>
         <p class="post-meta">Category: {{ post.category.name }}</p>
         <p class="post-meta">Nickname: {{ post.author.nickname }}</p>
         <p class="post-meta">{{ post.created_at|date:"Y-m-d H:i:s" }}</p>
