@@ -21,7 +21,11 @@ def post(request):
         elif search_type == 'nickname':
             posts = posts.filter(author__nickname__icontains=search_query)
 
-    return render(request, 'post.html', {'posts': posts, 'categories': categories})
+    return render(request, 'post.html', {
+        'posts': posts,
+        'categories': categories,
+        'selected_category': category_filter
+    })
 
 def postwrite(request):
     if request.method == 'POST':
