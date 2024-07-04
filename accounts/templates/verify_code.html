@@ -1,21 +1,52 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/mail2.css' %}" />
     <title>Enter Verification Code</title>
-</head>
-<body>
-    <h1>코드를 보내드렸습니다</h1>
-    <h3><p style="color: gray;">인증을 위해 아래에 입력해 주세요</p></h3>
+  </head>
+  <body>
+    <div class="infoText">
+      <div class="t1">코드를 보내드렸습니다.</div>
+      <div class="t2">인증을 위해 아래에 입력해주세요!</div>
+    </div>
+
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">인증하기</button>
+      {% csrf_token %}
+      <input type="text" class="inputCode" maxlength="1" id="code1" oninput="moveFocus(this, 'code2')" />
+      <input type="text" class="inputCode" maxlength="1" id="code2" oninput="moveFocus(this, 'code3')" onkeydown="backFocus(event, 'code1')" />
+      <input type="text" class="inputCode" maxlength="1" id="code3" oninput="moveFocus(this, 'code4')" onkeydown="backFocus(event, 'code2')" />
+      <input type="text" class="inputCode" maxlength="1" id="code4" oninput="moveFocus(this, 'code5')" onkeydown="backFocus(event, 'code3')" />
+      <input type="text" class="inputCode" maxlength="1" id="code5" oninput="moveFocus(this, 'code6')" onkeydown="backFocus(event, 'code4')" />
+      <input type="text" class="inputCode" maxlength="1" id="code6" oninput="moveFocus(this, '')" onkeydown="backFocus(event, 'code5')" />
     </form>
+
     <form method="post" action="{% url 'resend_code' %}">
-        {% csrf_token %}
-        <h5>코드를 받지 못했나요?</h5>
-        <button type="submit">다시보내기</button>
+      {% csrf_token %}
+      <div class="resend">코드는 받지 못했나요? <button type="submit" id="resend">다시 보내기</button></div>
     </form>
-</body>
+    <button type="submit" id="authBtn">인증하기</button>
+
+    <script>
+      // 다음 input으로 포커스를 이동
+      function moveFocus(currentInput, nextInputId) {
+        if (currentInput.value.length === currentInput.maxLength) {
+          if (nextInputId) {
+            document.getElementById(nextInputId).focus();
+          } else {
+            currentInput.blur(); // 마지막 input에서 focus를 해제
+          }
+        }
+      }
+
+      // 백스페이스를 누르면 이전 input으로 포커스 이동
+      function backFocus(event, prevInputId) {
+        if (event.key === "Backspace" && !event.target.value) {
+          document.getElementById(prevInputId).focus();
+        }
+      }
+    </script>
+  </body>
 </html>
