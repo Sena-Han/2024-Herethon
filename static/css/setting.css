@@ -1,13 +1,9 @@
 body {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 150px;
-  margin-top: 10vw;
+  margin-top: 8vw;
 }
 
-.leftpage {
+.leftpage,
+.rightpage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,60 +17,60 @@ body {
 }
 
 .setForm {
-  width: 390px;
-  height: 290px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+}
+
+.leftpage {
   display: flex;
   flex-direction: column;
+}
+
+.inputphoto {
+  width: 400px;
+  height: 300px;
   background-image: url("../img/background.png");
   background-repeat: no-repeat;
   background-size: cover;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .setForm label {
-  width: 140px;
-  height: 140px;
-
-  border-radius: 100%;
-  background-color: #d9d9d9;
-
   &:hover {
     cursor: pointer;
   }
 
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 290px;
+}
+
+img {
+  width: 140px;
+  height: 140px;
 }
 
 #user_photo {
   display: none;
 }
 
-img {
-  width: 32px;
-  height: 32px;
-  z-index: 2;
-
-  position: relative;
-  left: 50px;
-  bottom: 35px;
-}
-
 #saveBtn {
   color: white;
   text-decoration: none;
 
-  width: 200px;
-  height: 45px;
+  width: 210px;
+  height: 50px;
   background-color: #414141;
   border-radius: 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .text {

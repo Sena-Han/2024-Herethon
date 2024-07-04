@@ -19,9 +19,10 @@
 
     <div>
       <form method="post">{% csrf_token %} 
-        <input type="email" id="user_email" placeholder="오피스 이메일을 입력하세요." />
+        <input type="email" id="user_email" name="email" placeholder="오피스 이메일을 입력하세요." />
         <button type="submit" class="requestBtn">인증 요청</a>
       </form>
     </div>
   </body>
 </html>
+
