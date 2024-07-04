@@ -17,16 +17,15 @@
 
     <h1>{{ advice.title }}</h1>
     <p>{{ advice.content }}</p>
-    작성자: {{ advice.author.username }} ({{ advice.author.job_type }})<br>
-    {% if advice.author.profile_picture %}
-        <img src="{{ advice.author.profile_picture.url }}" alt="프로필 사진" style="width: 50px; height: 50px;">
-    {% else %}
-        <p>프로필 사진 없음</p>
-    {% endif %}
-    <p>재직 여부: {{ advice.author.is_currently_employed|yesno:"재직 중,퇴사" }}</p>
-    <p>재직 기간: {{ advice.author.start_year }} - {{ advice.author.end_year }}</p>
-    <p>회사 이름: {{ advice.author.job_type }}</p>
+    작성자: {{ advice.author.username }}<br>
+    직책 부서 이름: {{ advice.author.job_type }}<br>
+    <p>회사 분야: {{ advice.author.job_type }}</p>
     <p>작성 시간: {{ advice.created_at|date:"Y.m.d   A h:i" }}</p>
+    {% if advice.photo %}
+        <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
+    {% else %}
+        <p>조언 사진 없음</p>
+    {% endif %}
     <p>좋아요 수: {{ advice.like_count }}</p>
     <form method="post" action="{% url 'home:advice_like' advice.id %}">
         {% csrf_token %}

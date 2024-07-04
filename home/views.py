@@ -31,7 +31,7 @@ def home(request):
 
 # 조언 리스트
 def advice_list(request):
-    advices = Advice.objects.all()
+    advices = Advice.objects.all().order_by('-created_at')
     return render(request, 'advice_list.html', {'advices': advices})
 
 
@@ -45,8 +45,7 @@ def advice_detail(request, advice_id):
 @login_required
 def advice_write(request):
     user = request.user
-    # 사용자의 job_type 정보 확인
-    job_type = user.job_type  # 예시로 job_type이라고 가정
+    job_type = user.job_type  # 사용자의 직업 정보 확인
 
     if not job_type:
         # job_type 정보가 없는 경우 에러 메시지 출력 후 리다이렉트
@@ -54,7 +53,7 @@ def advice_write(request):
         return redirect('home:advice_list')
 
     if request.method == 'POST':
-        form = AdviceForm(request.POST)
+        form = AdviceForm(request.POST, request.FILES)
         if form.is_valid():
             advice = form.save(commit=False)
             advice.author = user
@@ -75,7 +74,7 @@ def advice_edit(request, advice_id):
         return redirect('home:advice_detail', advice_id=advice_id)
 
     if request.method == 'POST':
-        form = AdviceForm(request.POST, instance=advice)
+        form = AdviceForm(request.POST, request.FILES, instance=advice)
         if form.is_valid():
             form.save()
             messages.success(request, '게시물이 수정되었습니다.')

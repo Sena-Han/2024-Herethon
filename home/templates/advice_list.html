@@ -24,10 +24,10 @@
             <li>
                 <a href="{% url 'home:advice_detail' advice.id %}">{{ advice.title }}</a><br>
                 작성자: {{ advice.author.username }} ({{ advice.author.job_type }})<br>
-                {% if advice.author.profile_picture %}
-                    <img src="{{ advice.author.profile_picture.url }}" alt="프로필 사진" style="width: 50px; height: 50px;">
+                {% if advice.photo %}
+                    <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
                 {% else %}
-                    <p>프로필 사진 없음</p>
+                    <p>조언 사진 없음</p>
                 {% endif %}
                 <p>작성 시간: {{ advice.created_at|date:"Y.m.d   A h:i" }}</p>
                 <p>좋아요 수: {{ advice.like_count }}</p>
