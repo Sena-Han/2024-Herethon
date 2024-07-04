@@ -3,11 +3,8 @@ from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
-from twilio.rest import Client
 from .forms import SignUpForm, EmailVerificationForm, VerifyCodeForm
-from .models import CustomUser
 from django.contrib import messages
-from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
@@ -112,10 +109,7 @@ def login(request):
 
             if user is not None:
                 auth_login(request, user)
-                return redirect('home')
+                return redirect('home:home')
     else:
         form = AuthenticationForm() 
     return render(request, 'login.html', {'form': form})
-
-def home(request):
-    return render(request, 'home.html')

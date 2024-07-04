@@ -27,6 +27,27 @@ def post(request):
         'selected_category': category_filter
     })
 
+
+def post_category(request, category_name):
+    categories = Category.objects.all()
+    category_filter = category_name
+    search_query = request.GET.get('search')
+    search_type = request.GET.get('search_type')
+    posts = Post.objects.all()
+
+    if category_filter:
+        posts = posts.filter(category__name=category_filter)
+
+    if search_query:
+        if search_type == 'title':
+            posts = posts.filter(title__icontains=search_query)
+        elif search_type == 'content':
+            posts = posts.filter(content__icontains=search_query)
+        elif search_type == 'nickname':
+            posts = posts.filter(author__nickname__icontains=search_query)
+
+    return render(request, 'post.html', {'posts': posts, 'categories': categories, 'selected_category': category_filter})
+
 def postwrite(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)

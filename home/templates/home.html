@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <div class="container">
+        <h2>환영합니다</h2>
+        <div class="community-button">
+            <form action="{% url 'post' %}">
+                <button type="submit">community</button>
+            </form>
+        </div>
+
+        <div class="advice-section">
+            <h1>선배들의 조언</h1>
+            <a href="{% url 'home:advice_list' %}">더보기</a>
+            <a href="{% url 'home:advice_write' %}">새 조언 작성</a>
+
+            {% if top_advices %}
+                <ul>
+                    {% for advice in top_advices %}
+                    <li>
+                        <a href="{% url 'home:advice_detail' advice.id %}">{{ advice.title }}</a><br>
+                        직업: {{ advice.author.job_type }} <br>
+                        작성자: {{ advice.author.username }}<br>
+                        <p>좋아요 수: {{ advice.like_count }}</p>
+                        {% if advice.photo %}
+                            <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
+                        {% else %}
+                            <p>조언 사진 없음</p>
+                        {% endif %}
+
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>아직 작성된 조언이 없습니다.</p>
+            {% endif %}
+        </div>
+
+        <div class="post-section">
+            <h2><a href="{% url 'post_category' 'Q&A' %}">Q&A</a></h2>
+            <ul>
+                {% for post in top_qa_posts %}
+                <li>
+                    <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
+                    <p>{{ post.content|truncatechars:100 }}</p>
+                    <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }}</p>
+                    {{ post.created_at|timesince }} 전
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="post-section">
+        <h2><a href="{% url 'post_category' '라운지' %}">라운지</a></h2>
+            <ul>
+                {% for post in top_lounge_posts %}
+                <li>
+                    <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
+                    <p>{{ post.content|truncatechars:100 }}</p>
+                    <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }} </p>
+                    {{ post.created_at|timesince }} 전
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="post-section">
+        <h2><a href="{% url 'post_category' 'AMA' %}">AMA</a></h2>
+            <ul>
+                {% for post in top_ama_posts %}
+                    <li>
+                        <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
+                        {% if post.photo %}
+                            <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="fixed-size">
+                        {% else %}
+                             <p>사진 없음</p>
+                        {% endif %}
+                        <p>{{ post.hashtags }}</p>
+                        <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }}</p>
+                        {{ post.created_at|timesince }} 전
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

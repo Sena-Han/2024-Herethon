@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+        .success {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+  <h2>조언 수정</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      <label for="id_title">제목:</label>
+      <input type="text" name="title" id="id_title" value="{{ advice.title }}">
+      {% if form.title.errors %}
+        <div class="error">{{ form.title.errors }}</div>
+      {% endif %}
+    </div>
+    <div>
+      <label for="id_content">내용:</label>
+      <textarea name="content" id="id_content">{{ advice.content }}</textarea>
+      {% if form.content.errors %}
+        <div class="error">{{ form.content.errors }}</div>
+      {% endif %}
+    </div>
+    <div>
+      <label for="id_photo">이미지:</label>
+      {% if advice.photo %}
+        <div>
+          <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
+        </div>
+      {% endif %}
+      <input type="file" name="photo" id="id_photo">
+      {% if form.photo.errors %}
+        <div class="error">{{ form.photo.errors }}</div>
+      {% endif %}
+    </div>
+    <button type="submit">수정</button>
+  </form>
+  <a href="{% url 'home:advice_detail' advice.id %}">취소</a>
+</body>
+</html>

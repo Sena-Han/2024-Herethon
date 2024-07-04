@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advice List</title>
+</head>
+<body>
+    <a href="{% url 'home:home' %}">뒤로가기</a>
+
+    <h1>Advice List</h1>
+    <a href="{% url 'home:advice_write' %}">새 조언 작성</a>
+    <form action="{% url 'home:advice_list' %}" method="get" class="category-filter">
+        <select name="category">
+            <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <form action="{% url 'home:advice_list' %}" method="get" class="search-form">
+        <select name="search_type">
+            <option value="title" {% if request.GET.search_type == "title" %}selected{% endif %}>제목</option>
+            <option value="content" {% if request.GET.search_type == "content" %}selected{% endif %}>글</option>
+            <option value="nickname" {% if request.GET.search_type == "nickname" %}selected{% endif %}>작성자</option>
+        </select>
+        <input type="text" name="search" placeholder="Search" value="{{ request.GET.search }}">
+        <button type="submit">Search</button>
+    </form>
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if advices %}
+        <ul>
+            {% for advice in advices %}
+            <li>
+                <a href="{% url 'home:advice_detail' advice.id %}">{{ advice.title }}</a><br>
+                작성자: {{ advice.author.username }} ({{ advice.author.job_type }})<br>
+                {% if advice.photo %}
+                    <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
+                {% else %}
+                    <p>조언 사진 없음</p>
+                {% endif %}
+                <p>작성 시간: {{ advice.created_at|date:"Y.m.d   A h:i" }}</p>
+                <p>좋아요 수: {{ advice.like_count }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <script>
+        // 페이지를 나갈 때 메시지 리셋
+        window.addEventListener('beforeunload', function() {
+            var messages = document.querySelectorAll('.messages .message');
+            messages.forEach(function(message) {
+                message.remove();
+            });
+        });
+    </script>
+</body>
+</html>

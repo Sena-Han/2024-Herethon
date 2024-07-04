@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Write Advice</title>
 </head>
 <body>
-    <h1>Sign Up</h1>
+    <h1>새 조언 작성</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Sign Up</button>
+        <button type="submit">저장</button>
     </form>
 </body>
 </html>
