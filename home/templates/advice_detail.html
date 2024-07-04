@@ -14,7 +14,16 @@
 </head>
 <body>
     <a href="{% url 'home:advice_list' %}">뒤로가기</a>
-
+    <form method="post" action="{% url 'home:advice_scrap' advice.id %}">
+        {% csrf_token %}
+        <button type="submit">
+            {% if request.user in advice.scraps.all %}
+                스크랩 취소
+            {% else %}
+                스크랩
+            {% endif %}
+        </button>
+    </form>
     <h1>{{ advice.title }}</h1>
     <p>{{ advice.content }}</p>
     작성자: {{ advice.author.username }}<br>

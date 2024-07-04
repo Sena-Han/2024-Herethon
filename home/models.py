@@ -11,6 +11,7 @@ class Advice(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='photos_advice/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    scraps = models.ManyToManyField(CustomUser, related_name='scrapped_advices', blank=True)
     likes = models.ManyToManyField(CustomUser, related_name='liked_advices', blank=True)
 
     def like_count(self):

@@ -143,3 +143,17 @@ def advice_like(request, advice_id):
         else:
             advice.likes.add(request.user)
     return redirect('home:advice_detail', advice_id=advice_id)
+
+# 조언 스크랩
+@login_required
+def advice_scrap(request, advice_id):
+    advice = get_object_or_404(Advice, id=advice_id)
+
+    if advice.scraps.filter(id=request.user.id).exists():
+        advice.scraps.remove(request.user)
+        messages.success(request, '스크랩이 취소되었습니다.')
+    else:
+        advice.scraps.add(request.user)
+        messages.success(request, '조언이 스크랩되었습니다.')
+
+    return redirect('home:advice_detail', advice_id=advice_id)

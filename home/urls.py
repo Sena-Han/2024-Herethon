@@ -12,4 +12,5 @@ urlpatterns = [
     path('advices/<int:advice_id>/', views.advice_detail, name='advice_detail'),
     path('advices/<int:advice_id>/delete/', views.advice_delete, name='advice_delete'),
     path('advices/<int:advice_id>/like/', views.advice_like, name='advice_like'),
+    path('advices/<int:advice_id>/scrap/', views.advice_scrap, name='advice_scrap'),
 ]
