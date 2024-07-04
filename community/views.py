@@ -30,7 +30,6 @@ def postwrite(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-
             return redirect('post')
     else:
         form = PostForm()

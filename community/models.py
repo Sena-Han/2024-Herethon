@@ -15,6 +15,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(CustomUser, related_name='post_likes', blank=True)
+    hashtags = models.CharField(max_length=200, blank=True)  # 해시태그 필드 추가
 
     def __str__(self):
         return self.title
