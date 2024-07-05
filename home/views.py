@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
@@ -59,7 +60,7 @@ def advice_list(request):
 
     # 검색 결과가 없는 경우 메시지 추가
     if not advices.exists() and (search_query or selected_category):
-        messages.info(request, '검색 결과가 없습니다.')
+        messages.info(request, '검색 결과가 없습니다.', extra_tags='search')
 
     return render(request, 'advice_list.html', {
         'advices': advices,
@@ -82,8 +83,8 @@ def advice_write(request):
 
     if not job_type:
         # job_type 정보가 없는 경우 에러 메시지 출력 후 리다이렉트
-        messages.error(request, '직업 정보를 입력하기 전에는 작성할 수 없습니다.')
-        return redirect('home:advice_list')
+        messages.error(request, '직업 정보를 입력하기 전에는 작성할 수 없습니다.', extra_tags='permission')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     if request.method == 'POST':
         form = AdviceForm(request.POST, request.FILES)
