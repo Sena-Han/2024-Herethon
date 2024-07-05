@@ -1,149 +1,87 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}" />
     <title>My Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .sidebar {
-            float: left;
-            width: 20%;
-            background-color: #f8f8f8;
-            padding: 20px;
-            box-sizing: border-box;
-            height: 100vh;
-        }
-        .sidebar h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar ul ul {
-            margin-left: 10px;
-        }
-        .sidebar li {
-            margin-bottom: 10px;
-        }
-        .sidebar li a {
-            text-decoration: none;
-            color: #333;
-        }
-        .content {
-            float: left;
-            width: 75%;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .profile-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .profile-info {
-            margin-left: 20px;
-        }
-        .profile-info h2 {
-            font-size: 24px;
-            margin: 0;
-        }
-        .profile-info p {
-            margin: 5px 0;
-        }
-        .profile-info button {
-            background-color: #e4b1ab;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            color: white;
-            border-radius: 5px;
-        }
-        .form-section {
-            margin-top: 20px;
-        }
-        .form-section h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .form-section form {
-            display: flex;
-            flex-direction: column;
-        }
-        .form-section label {
-            margin-bottom: 5px;
-        }
-        .form-section input {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-section button {
-            background-color: #e4b1ab;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            color: white;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="sidebar">
-        <h2>My Page</h2>
-        <ul>
-            <li>자기소개</li>
-            <li>활동
-                <ul>
-                    <li><a href="{% url 'my-posts' %}">작성한 글 보기</a></li>
-                    <li><a href="{% url 'my-comments' %}">작성한 댓글 보기</a></li>
-                    <li><a href="{% url 'scrapped-list' %}">작성한 스크랩 보기</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="content">
-        <div class="profile-section">
-            <img src="{{ user.profile_picture.url }}" alt="Profile Image" class="profile-image">
-            <div class="profile-info">
-                <h2>{{ user.nickname }}</h2>
-                <p>직무: {{ user.job_type }}</p>
-                <button onclick="document.getElementById('edit-profile-form').style.display='block'">Edit</button>
-            </div>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header__menu">
+        <a class="header__menu__item homeText" href="#home">MUSE</a>
+        <a class="header__menu__item" href="{% url 'home:advice_list' %}">소식</a>
+        <div class="mypage-button">
+          <a class="header__menu__item" href="{% url 'mypage' %}">마이페이지</a>
         </div>
-        <div id="edit-profile-form" class="form-section" style="display:none;">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save</button>
-            </form>
+        <div class="community-button">
+          <a class="header__menu__item" href="{% url 'post' %}">커뮤니티</a>
+        </div>
+      </div>
+    </header>
+    <div class="set">
+      <div class="sidebar">
+        <h2 class="mypage">My Page</h2>
+        <ul>
+          <hr />
+          <li class="mymy">자기소개</li>
+          <li>
+            <div class="hh">활동</div>
+            <hr />
+            <ul class="bb">
+              <li><a href="{% url 'my-posts' %}">작성한 글 보기</a></li>
+              <li><a href="{% url 'my-comments' %}">작성한 댓글 보기</a></li>
+              <li><a href="{% url 'scrapped-list' %}">작성한 스크랩 보기</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="center">
+          <div class="profile-section">
+            <img src="{% static 'img/userphoto.png' %}" alt="Profile Image" class="profile-image" />
+            <div class="profile-info">
+              <div class="nick">
+                <div class="text1">닉네임</div>
+                <div class="box1">
+                  <h2 class="users">{{ user.nickname }}</h2>
+                </div>
+              </div>
+              <div class="nick">
+                <div class="text1">직업 분야</div>
+                <div class="box1">
+                  <p class="users">{{ user.job_type }}</p>
+                </div>
+              </div>
+
+              <button onclick="document.getElementById('edit-profile-form').style.display='block'">Edit</button>
+            </div>
+          </div>
+        </div>
+        <div id="edit-profile-form" class="form-section" style="display: none">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit">Save</button>
+          </form>
         </div>
         <div class="form-section">
-            <h2>재직 정보</h2>
-            <form method="post">
-                {% csrf_token %}
-                <label>{{ form.is_employed.label_tag }}</label> {{ form.is_employed }}
-                <label>{{ form.start_year.label_tag }}</label> {{ form.start_year }}
-                <label>{{ form.end_year.label_tag }}</label> {{ form.end_year }}
-                <label>{{ form.company_name.label_tag }}</label> {{ form.company_name }}
-                <label>{{ form.position.label_tag }}</label> {{ form.position }}
-                <label>{{ form.department.label_tag }}</label> {{ form.department }}
-                <button type="submit">Save</button>
-            </form>
+          <h2 class="ii">재직 정보</h2>
+          <form method="post">
+            {% csrf_token %}
+            <div class="row1">
+              <label>재직 여부</label>
+              <div class="ing">재직 중{{ form.is_employed }}</div>
+            </div>
+            <div class="yyy">
+              <div class="yy1"><label>입사 년도</label> {{ form.start_year }}</div>
+              <div class="yy2"><label>퇴사 년도</label> {{ form.end_year }}</div>
+            </div>
+            <label>회사 이름</label> {{ form.company_name }} <label>직책</label> {{ form.position }} <label>부서</label> {{ form.department }}
+            <button type="submit">저장하기</button>
+          </form>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
