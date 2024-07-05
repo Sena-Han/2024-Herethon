@@ -8,6 +8,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            width: 900px;
+            margin: 0 auto;
         }
         .content {
             width: 75%;
@@ -20,12 +22,16 @@
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 5px;
+            background-color: #FFFAEC;
         }
         .advice h3 {
             margin: 0 0 10px 0;
         }
         .advice p {
             margin: 5px 0;
+        }
+        h1:hover {
+            color: #FFFAEC;
         }
     </style>
 </head>
@@ -39,7 +45,7 @@
                 <a href="{% url 'home:advice_detail' advice.id %}">Read More</a>
             </div>
         {% empty %}
-            <p>스크랩한 글이 없습니다.</p>
+            <p>No scrapped advices found.</p>
         {% endfor %}
     </div>
 </body>

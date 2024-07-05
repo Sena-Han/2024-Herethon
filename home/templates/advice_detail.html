@@ -4,6 +4,126 @@
     <meta charset="UTF-8">
     <title>Advice Detail</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color:  #FFFAEC;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 40px;
+        }
+        .img__container {
+            background-color: #ffffff;
+            max-width: 80%;
+            height: 300px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+        img.fixed-size {
+            max-width: 100%;
+            height: 300px;
+            display: block;
+            margin: 20px auto;
+        }
+        p.post-meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .submit__button, .button {
+            background-color: #F4D3C0;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .submit__button:hover {
+            background-color: #F4D3C0;
+        }
+        .delete-button {
+            background-color: #d78e96;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .edit-button {
+            background-color: #a8c597;
+        }
+        .edit-button:hover {
+            background-color: #67c233;
+        }
+        .reply-button {
+            background-color: #f9d977;
+        }
+        .reply-button:hover {
+            background-color: #d9bc2d;
+        }
+        .comment-section {
+            margin-top: 40px;
+        }
+        .comment {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            position: relative;
+        }
+        .comment p {
+            margin: 5px 0;
+        }
+        .reply {
+            margin-left: 40px;
+        }
+        .comment-form {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .comment-form h3 {
+            margin-bottom: 20px;
+        }
+        .submit__container {
+            display: flex;
+            justify-content: end;
+        }
+        .submit__button:hover {
+            background-color: #ff9d64;
+        }
+        .post-meta__container {
+            display: flex;
+        }
+        .post-meta__container p {
+            padding: 10px;
+            margin-top: 100px;
+        }
+        textarea {
+            width: 97%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
         .error {
             color: red;
         }
@@ -13,58 +133,62 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'home:advice_list' %}">뒤로가기</a>
-    <form method="post" action="{% url 'home:advice_scrap' advice.id %}">
-        {% csrf_token %}
-        <button type="submit">
-            {% if request.user in advice.scraps.all %}
-                스크랩 취소
-            {% else %}
-                스크랩
+    <div class="container">
+        <a href="{% url 'home:advice_list' %}">뒤로가기</a>
+        <div class="button-container">
+            <form method="post" action="{% url 'home:advice_like' advice.id %}">
+                {% csrf_token %}
+                <button type="submit" class="submit__button">
+                    {% if request.user in advice.likes.all %}
+                        좋아요 취소
+                    {% else %}
+                        좋아요
+                    {% endif %}
+                </button>
+            </form>
+            <form method="post" action="{% url 'home:advice_scrap' advice.id %}">
+                {% csrf_token %}
+                <button type="submit" class="submit__button">
+                    {% if request.user in advice.scraps.all %}
+                        스크랩 취소
+                    {% else %}
+                        스크랩
+                    {% endif %}
+                </button>
+            </form>
+            {% if request.user == advice.author or request.user.is_staff %}
+            <form method="post" action="{% url 'home:advice_edit' advice.id %}" onsubmit="return confirm('게시물을 수정하시겠습니까?');">
+                {% csrf_token %}
+                <button type="submit" class="submit__button edit-button">수정</button>
+            </form>
+            <form method="post" action="{% url 'home:advice_delete' advice.id %}" onsubmit="return confirm('게시물을 삭제하시겠습니까?');">
+                {% csrf_token %}
+                <button type="submit" class="submit__button delete-button">삭제</button>
+            </form>
             {% endif %}
-        </button>
-    </form>
-    <h1>{{ advice.title }}</h1>
-    <p>{{ advice.content }}</p>
-    작성자: {{ advice.author.username }}<br>
-    직책 부서 이름: {{ advice.author.job_type }}<br>
-    <p>회사 분야: {{ advice.author.job_type }}</p>
-    <p>작성 시간: {{ advice.created_at|date:"Y.m.d   A h:i" }}</p>
-    {% if advice.photo %}
-        <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
-    {% else %}
-        <p>조언 사진 없음</p>
-    {% endif %}
-    <p>좋아요 수: {{ advice.like_count }}</p>
-    <form method="post" action="{% url 'home:advice_like' advice.id %}">
-        {% csrf_token %}
-        <button type="submit">
-            {% if request.user in advice.likes.all %}
-                좋아요 취소
-            {% else %}
-                좋아요
-            {% endif %}
-        </button>
-    </form>
-
-    {% if request.user == advice.author or request.user.is_staff %}
-    <form method="post" action="{% url 'home:advice_delete' advice.id %}" onsubmit="return confirm('게시물을 삭제하시겠습니까?');">
-        {% csrf_token %}
-        <button type="submit">삭제</button>
-    </form>
-    <form method="post" action="{% url 'home:advice_edit' advice.id %}" onsubmit="return confirm('게시물을 수정하시겠습니까?');">
-        {% csrf_token %}
-        <button type="submit">수정</button>
-    </form>
-    {% endif %}
-
-
-    <div class="messages">
-        {% for message in messages %}
-            <div class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
-                {{ message }}
+        </div>
+        <h1>{{ advice.title }}</h1>
+        <p>{{ advice.content }}</p>
+        작성자: {{ advice.author.username }}<br>
+        직책 부서 이름: {{ advice.author.job_type }}<br>
+        <p>회사 분야: {{ advice.author.job_type }}</p>
+        <p>작성 시간: {{ advice.created_at|date:"Y.m.d   A h:i" }}</p>
+        {% if advice.photo %}
+            <div class="img__container">
+                <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" class="fixed-size">
             </div>
-        {% endfor %}
+        {% else %}
+            <p>조언 사진 없음</p>
+        {% endif %}
+        <p>좋아요 수: {{ advice.like_count }}</p>
+
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     <script>
