@@ -38,7 +38,8 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 
  기획/디자인
 ![gd](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
-
+<br>
+<br>
 
 ## :smiley_cat:팀원 소개
 
@@ -53,5 +54,15 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 <br>
 <br>
 
-## :link:배포 링크
-<br>
+
+## 🔗개발환경에서의 실행 방법
+```
+$ cd 2024-Herethon-12
+$ python -m venv myvenv
+$ source myvenv/Scripts/activate
+$ pip install django-environ
+$ pip install Pillow
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
+```
