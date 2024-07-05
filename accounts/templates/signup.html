@@ -45,29 +45,37 @@
 
         <div class="birth">
           <div class="text">생년월일</div>
-          <input type="number" name="date_of_birth_year" id="user_birthY" placeholder="년(4자)" />
-          <select id="user_birthM" name="date_of_birth_month">
+          <input type="number" name="date_of_birth_year" id="id_date_of_birth_year" placeholder="년(4자)" />
+          <select id="id_date_of_birth_month" name="date_of_birth_month">
             <option value="">월</option>
-            <option value="">1월</option>
-            <option value="">2월</option>
-            <option value="">3월</option>
-            <option value="">4월</option>
-            <option value="">5월</option>
-            <option value="">6월</option>
-            <option value="">7월</option>
-            <option value="">8월</option>
-            <option value="">9월</option>
-            <option value="">10월</option>
-            <option value="">11월</option>
-            <option value="">12월</option>
+            <option value="1">1월</option>
+            <option value="2">2월</option>
+            <option value="3">3월</option>
+            <option value="4">4월</option>
+            <option value="5">5월</option>
+            <option value="6">6월</option>
+            <option value="7">7월</option>
+            <option value="8">8월</option>
+            <option value="9">9월</option>
+            <option value="10">10월</option>
+            <option value="11">11월</option>
+            <option value="12">12월</option>
           </select>
-          <input type="number" name="date_of_birth_day" id="user_birthD" placeholder="일" />
+          <input type="number" name="date_of_birth_day" id="id_date_of_birth_day" placeholder="일" />
         </div>
 
         <div class="phone">
           <div class="text">휴대전화</div>
           <input type="tel" name="phone_number" id="user_phonenum" />
         </div>
+      </div>
+
+      <div class="messages">
+        {% for message in messages %}
+        <div class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+          {{ message }}
+        </div>
+        {% endfor %}
       </div>
     </form>
   </body>
