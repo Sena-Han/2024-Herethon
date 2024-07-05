@@ -55,8 +55,3 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 
 ## :link:배포 링크
 <br>
-
-
-## :part_alternation_mark:가장 많이 사용한 언어
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=yohan050605)](https://github.com/anuraghazra/github-readme-stats)
-</div>
