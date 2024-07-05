@@ -79,9 +79,8 @@ def advice_detail(request, advice_id):
 @login_required
 def advice_write(request):
     user = request.user
-    job_type = user.job_type  # 사용자의 직업 정보 확인
 
-    if not job_type:
+    if not user.job_info or not user.job_info.company_name:
         # job_type 정보가 없는 경우 에러 메시지 출력 후 리다이렉트
         messages.error(request, '직업 정보를 입력하기 전에는 작성할 수 없습니다.', extra_tags='permission')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
