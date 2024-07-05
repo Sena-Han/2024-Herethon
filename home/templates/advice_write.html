@@ -8,7 +8,27 @@
     <h1>새 조언 작성</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div>
+            <label for="id_title">제목:</label>
+            <input type="text" name="title" id="id_title" value="{{ form.title.value|default_if_none:'' }}">
+            {% if form.title.errors %}
+                <div class="error">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+        <div>
+            <label for="id_content">내용:</label>
+            <textarea name="content" id="id_content">{{ form.content.value|default_if_none:'' }}</textarea>
+            {% if form.content.errors %}
+                <div class="error">{{ form.content.errors }}</div>
+            {% endif %}
+        </div>
+        <div>
+            <label for="id_photo">이미지:</label>
+            <input type="file" name="photo" id="id_photo">
+            {% if form.photo.errors %}
+                <div class="error">{{ form.photo.errors }}</div>
+            {% endif %}
+        </div>
         <button type="submit">저장</button>
     </form>
 </body>
