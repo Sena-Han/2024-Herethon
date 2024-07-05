@@ -10,9 +10,9 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.forms import MyPageForm
-from .models import CustomUser, MyPage
-from community.forms import PostForm, CommentForm
-from community.models import Post, Category, Comment
+from .models import MyPage
+from community.models import Post, Comment
+from home.models import Advice
 
 
 
@@ -173,3 +173,10 @@ def comment_list_view(request):
         })
     else:
         return redirect('login')
+    
+@login_required
+def scrapped_list_view(request):
+    user = request.user
+    scrapped_advices = user.scrapped_advices.all()
+
+    return render(request, 'scrapped_list.html', {'scrapped_advices': scrapped_advices})

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scrapped Advices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            width: 75%;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .advice {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .advice h3 {
+            margin: 0 0 10px 0;
+        }
+        .advice p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>스크랩한 글</h1>
+        {% for advice in scrapped_advices %}
+            <div class="advice">
+                <h3>{{ advice.title }}</h3>
+                <p>{{ advice.content|truncatewords:20 }}</p>
+                <a href="{% url 'home:advice_detail' advice.id %}">Read More</a>
+            </div>
+        {% empty %}
+            <p>No scrapped advices found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
