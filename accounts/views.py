@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
 from django.utils.crypto import get_random_string
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.forms import MyPageForm
 from .models import CustomUser, MyPage
+from community.forms import PostForm, CommentForm
+from community.models import Post, Category, Comment
 
 
 
@@ -139,3 +142,34 @@ def mypage_view(request):
         form = MyPageForm(instance=my_page)
     return render(request, 'mypage.html', {'form': form})
 
+def mypage_post(request):
+    if request.user.is_authenticated:
+        posts = Post.objects.filter(author=request.user)
+        comments = Comment.objects.filter(author=request.user)
+
+        return render(request, 'mypage.html', {
+            'posts': posts,
+            'comments': comments
+        })
+    else:
+        return redirect('login')
+    
+def post_list_view(request):
+    if request.user.is_authenticated:
+        posts = Post.objects.filter(author=request.user)
+
+        return render(request, 'post_list.html', {
+            'posts': posts
+        })
+    else:
+        return redirect('login')
+
+def comment_list_view(request):
+    if request.user.is_authenticated:
+        comments = Comment.objects.filter(author=request.user)
+
+        return render(request, 'comment_list.html', {
+            'comments': comments
+        })
+    else:
+        return redirect('login')

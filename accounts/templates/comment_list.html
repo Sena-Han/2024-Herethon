@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Comments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .comment {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .comment p {
+            margin-bottom: 10px;
+        }
+        .comment small {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Comments</h1>
+    {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <small>작성일: {{ comment.created_at }}</small>
+            <br>
+            <a href="{% url 'postdetail' pk=comment.post.pk %}">게시글 보기</a>
+        </div>
+    {% empty %}
+        <p>작성한 댓글이 없습니다.</p>
+    {% endfor %}
+</body>
+</html>
