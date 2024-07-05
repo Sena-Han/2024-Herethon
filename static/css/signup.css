@@ -97,23 +97,14 @@ button {
   }
 }
 
+#user_username,
 #user_password,
 #user_email,
 #user_name,
-#user_phonenum {
+#user_phonenum,
+#user_nickname {
   width: 450px;
   margin-bottom: 5px;
-}
-
-#user_password_re {
-  width: 310px;
-  margin-right: 5px;
-  margin-bottom: 5px;
-}
-
-#user_password_ch {
-  width: 130px;
-  padding: 0;
 }
 
 #user_birthY {
@@ -124,10 +115,4 @@ button {
 #user_birthM,
 #user_birthD {
   width: 121px;
-}
-
-#user_startY,
-#user_endY {
-  width: 213px;
-  margin-bottom: 5px;
 }

@@ -28,8 +28,8 @@ input {
   flex-direction: column;
 }
 
-#user_email,
-#user_password {
+#id_username,
+#id_password {
   width: 29vw;
   height: 4vw;
 

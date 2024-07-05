@@ -17,3 +17,12 @@ class EmailVerificationForm(forms.Form):
 
 class VerifyCodeForm(forms.Form):
     code = forms.CharField(max_length=6)
+    
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'id': 'username'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'id': 'password'})
+    )

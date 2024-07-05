@@ -19,6 +19,11 @@ input {
 
 form {
   display: flex;
+  flex-direction: column;
+}
+
+.colset {
+  display: flex;
   flex-direction: row;
 }
 
@@ -48,5 +53,25 @@ label {
     cursor: pointer;
     color: black;
     border-color: black;
+  }
+}
+
+input[type="radio"]:checked + label {
+  color: black;
+  border-color: black;
+}
+
+button {
+  width: 655px;
+  height: 40px;
+  color: #acacac;
+  background-color: #f4d3c0;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  padding: 0;
+  margin: 5px;
+
+  &:hover {
+    cursor: pointer;
   }
 }

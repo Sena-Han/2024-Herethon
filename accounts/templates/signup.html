@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/setting.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
     <title>설정</title>
   </head>
 
@@ -22,16 +22,11 @@
       <div class="rightpage">
         <div class="nn">
           <div class="text">아이디</div>
-          <input type="text" name="username" id="user_password_re" placeholder="아이디 입력" />
-          <button id="user_password_ch">중복 확인</button>
+          <input type="text" name="username" id="user_username" placeholder="아이디 입력" />
         </div>
         <div class="pw">
           <div class="text">비밀번호</div>
           <input type="password" name="password1" id="user_password" placeholder="비밀번호 입력" />
-          <div class="pwch">
-            <input type="password" name="password2" id="user_password_re" placeholder="비밀번호 확인" />
-            <button id="user_password_ch">비밀번호 확인</button>
-          </div>
         </div>
 
         <div class="em">
@@ -41,7 +36,7 @@
 
         <div class="nn">
           <div class="text">닉네임</div>
-          <input type="text" name="nickname" id="user_name" placeholder="닉네임을 입력하세요." />
+          <input type="text" name="nickname" id="user_nickname" placeholder="닉네임을 입력하세요." />
         </div>
 
         <div class="birth">

@@ -1,53 +1,75 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Job Selection</title>
-    <style>
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        .job-button {
-            flex: 1 0 45%; /* 2 columns with a little gap */
-            margin: 5px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            text-align: center;
-            cursor: pointer;
-        }
-        .job-button.selected {
-            background-color: #f0f0f0;
-            border-color: #000;
-        }
-    </style>
-    <script>
-        function selectJob(job) {
-            document.getElementById('job_category').value = job;
-            document.querySelectorAll('.job-button').forEach(function(button) {
-                button.classList.remove('selected');
-            });
-            document.getElementById(job).classList.add('selected');
-        }
-    </script>
-</head>
-<body>
-    <h1>직무 선택</h1>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" id="job_category" name="job_category" />
-        <div class="container">
-            {% for job in job_categories %}
-                <div id="{{ job }}" class="job-button" onclick="selectJob('{{ job }}')">{{ job }}</div>
-            {% endfor %}
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/job_select.css' %}" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="text">직무 선택</div>
+    <form>
+      <div class="colset">
+        <div class="left">
+          <input type="radio" id="경영/관리" name="job" />
+          <label for="경영/관리">경영/관리</label>
+
+          <input type="radio" id="IT/인터넷" name="job" />
+          <label for="IT/인터넷">IT/인터넷</label>
+
+          <input type="radio" id="연구개발/설계" name="job" />
+          <label for="연규개발/설계">연구개발/설계</label>
+
+          <input type="radio" id="마케팅/PR" name="job" />
+          <label for="마케팅/PR">마케팅/PR</label>
+
+          <input type="radio" id="전문직" name="job" />
+          <label for="전문직">전문직</label>
+
+          <input type="radio" id="디자인" name="job" />
+          <label for="디자인">디자인</label>
+
+          <input type="radio" id="방송/언론" name="job" />
+          <label for="방송/언론">방송/언론</label>
+
+          <input type="radio" id="교육 전문직" name="job" />
+          <label for="교육 전문직">교육 전문직</label>
+
+          <input type="radio" id="의료 전문직" name="job" />
+          <label for="의료 전문직">의료 전문직</label>
         </div>
-        <button type="submit">Save</button>
+
+        <div class="right">
+          <input type="radio" id="영업" name="job" />
+          <label for="영업">영업</label>
+
+          <input type="radio" id="건설" name="job" />
+          <label for="건설">건설</label>
+
+          <input type="radio" id="생산/제조" name="job" />
+          <label for="생산/제조">생산/제조</label>
+
+          <input type="radio" id="금융전문직" name="job" />
+          <label for="금융전문직">금융전문직</label>
+
+          <input type="radio" id="생활/서비스" name="job" />
+          <label for="생활/서비스">생활/서비스</label>
+
+          <input type="radio" id="문화/예술" name="job" />
+          <label for="문화/예술">문화/예술</label>
+
+          <input type="radio" id="조사/분석" name="job" />
+          <label for="조사/분석">조사/분석</label>
+
+          <input type="radio" id="공무원/정치인" name="job" />
+          <label for="공무원/정치인">공무원/정치인</label>
+
+          <input type="radio" id="기타전문직" name="job" />
+          <label for="기타 전문직">기타전문직</label>
+        </div>
+      </div>
+      <button type="submit">Save</button>
     </form>
-</body>
+  </body>
 </html>
-
-
-
