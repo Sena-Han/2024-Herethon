@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
@@ -69,12 +71,27 @@ def signup_view(request):
 
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
-        if form.is_valid():
+        # Get date of birth fields
+        year = request.POST.get('date_of_birth_year')
+        month = request.POST.get('date_of_birth_month')
+        day = request.POST.get('date_of_birth_day')
+
+        # Validate and create date_of_birth
+        try:
+            date_of_birth = date(int(year), int(month), int(day))
+        except (ValueError, TypeError):
+            date_of_birth = None
+            messages.error(request, 'Invalid date of birth.')
+
+        if form.is_valid() and date_of_birth:
             user = form.save(commit=False)
+            user.date_of_birth = date_of_birth
             user.email_verified = True
             user.save()
-            form.save()
             return redirect('job_selection')
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
