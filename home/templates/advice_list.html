@@ -1,81 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Advice List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소식</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 <body>
-    <a href="{% url 'home:home' %}">뒤로가기</a>
+    <div id="wrap">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__menu">
+                <a class="header__menu__item homeText" href="{% url 'home' %}">MUSE</a>
+                <a class="header__menu__item" href="{% url 'home:advice_list' %}">소식</a>
+                <a class="header__menu__item" href="#mypage">마이페이지</a>
+                <a class="header__menu__item" href="#community">커뮤니티</a>
+            </div>
+            <div class="header__menu">
+                <a class="header__menu__item" href="#login">로그인</a>
+                <a class="header__menu__item" href="#join">회원가입</a>
+            </div>
+        </header>
+        <!-- Main -->
+        <main id="main">
+            <!-- News (소식) -->
+            <section id="news" class="content">
+                <div class="news-search">
+                    <div class="news-search-container">
+                        <img src="{% static 'img/search.svg' %}" alt="">
+                        <input type="text" placeholder="검색어를 입력하세요">
+                    </div>
+                    <div class="job-select-container">
+                        <button class="job-select">직무 선택</button>
+                    </div>
+                </div>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <a href="#" class="post-link" data-id="1">
+                            <div class="news-content">
+                                <p class="quote">“나는 도전을 두려워 하지 않는다”</p>
+                                <div class="divider"></div>
 
-    <h1>Advice List</h1>
-
-    <a href="{% url 'home:advice_write' %}">새 조언 작성</a>
-    <div class="messages">
-        {% for message in messages %}
-            {% if 'permission' in message.tags %}
-                <div class="message error permission">{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <form action="{% url 'home:advice_list' %}" method="get" class="category-filter">
-        <select name="category">
-            <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
-            {% for category in categories %}
-                <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Filter</button>
-    </form>
-
-    <form action="{% url 'home:advice_list' %}" method="get" class="search-form">
-        <select name="search_type">
-            <option value="title" {% if request.GET.search_type == "title" %}selected{% endif %}>제목</option>
-            <option value="content" {% if request.GET.search_type == "content" %}selected{% endif %}>글</option>
-            <option value="nickname" {% if request.GET.search_type == "nickname" %}selected{% endif %}>작성자</option>
-        </select>
-        <input type="text" name="search" placeholder="Search" value="{{ request.GET.search }}">
-        <button type="submit">Search</button>
-    </form>
-    <div class="messages">
-        {% for message in messages %}
-            {% if 'search' in message.tags %}
-                <div class="message error search">{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    {% if advices %}
-        <ul>
-            {% for advice in advices %}
-            <li>
-                <a href="{% url 'home:advice_detail' advice.id %}">{{ advice.title }}</a><br>
-                작성자: {{ advice.author.username }} ({{ advice.author.job_type }})<br>
-                {% if advice.photo %}
-                    <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
-                {% else %}
-                    <p>조언 사진 없음</p>
-                {% endif %}
-                <p>작성 시간: {{ advice.created_at|date:"Y.m.d   A h:i" }}</p>
-                <p>좋아요 수: {{ advice.like_count }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <script>
-        // 1초 후 메시지 숨기기
-        setTimeout(function() {
-            var messages = document.querySelectorAll('.messages .message.permission');
-            messages.forEach(function(message) {
-                message.style.display = 'none';
-            });
-        }, 1000);
-
-        // 페이지를 나갈 때 메시지 리셋
-        window.addEventListener('beforeunload', function() {
-            var messages = document.querySelectorAll('.messages .message');
-            messages.forEach(function(message) {
-                message.remove();
-            });
-        });
-    </script>
+                            </div>
+                            <div class="news-stats">
+                                <p class="author">SKT 데이터 서비스 개발자 
+                                    <span>정다예</span>
+                                </p>
+                                <span class="likes">36</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="#" class="post-link" data-id="2">
+                            <div class="news-content">
+                                <p class="quote">“개발자는 젠더와 세대의 갈등 없이 평등하게 일할 수 있는 직군”</p>
+                                <div class="divider"></div>
+                            </div>
+                            <div class="news-stats">
+                                <p class="author">SKT 엔지니어 출신 개발자 
+                                    <span>송민경</span>
+                                </p>
+                                <span class="likes">27</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="#" class="post-link" data-id="3">
+                            <div class="news-content">
+                                <p class="quote">“SKT에는 개발 역량 넓힐 기회와 환경이 열려 있어”</p>
+                                <div class="divider"></div>
+                            </div>
+                            <div class="news-stats">
+                                <p class="author">SKT 15년차 베테랑 개발자 
+                                    <span>정다예</span
+                                ></p>
+                                <span class="likes">18</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="#" class="post-link" data-id="4">
+                            <div class="news-content">
+                                <p class="quote">“통신사 특화 텔코 LLM 모델을 개발하는 언어학자”</p>
+                                <div class="divider"></div>
+                            </div>
+                            <div class="news-stats">
+                                <p class="author">DATA 구축 및 평가 팀  
+                                    <span>이서진</span>
+                                </p>
+                                <span class="likes">6</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <!-- Post Detail -->
+            <section id="post-detail" class="post-detail" style="display:none;">
+                <h1>“나는 도전을 두려워 하지 않는다”</h1>
+                <div id="post-content"></div>
+                <button id="back-to-news">뒤로가기</button>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer id="footer">
+        </footer>
 </body>
 </html>

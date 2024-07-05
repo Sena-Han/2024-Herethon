@@ -2,90 +2,206 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h2>환영합니다</h2>
-        <div class="community-button">
-            <form action="{% url 'post' %}">
-                <button type="submit">community</button>
-            </form>
-        </div>
-
-        <div class="advice-section">
-            <h1>선배들의 조언</h1>
-            <a href="{% url 'home:advice_list' %}">더보기</a>
-            <a href="{% url 'home:advice_write' %}">새 조언 작성</a>
-
-            {% if top_advices %}
-                <ul>
-                    {% for advice in top_advices %}
-                    <li>
-                        <a href="{% url 'home:advice_detail' advice.id %}">{{ advice.title }}</a><br>
-                        직업: {{ advice.author.job_type }} <br>
-                        작성자: {{ advice.author.username }}<br>
-                        <p>좋아요 수: {{ advice.like_count }}</p>
-                        {% if advice.photo %}
-                            <img src="{{ advice.photo.url }}" alt="{{ advice.title }}" style="width: 100px; height: auto;">
-                        {% else %}
-                            <p>조언 사진 없음</p>
-                        {% endif %}
-
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>아직 작성된 조언이 없습니다.</p>
-            {% endif %}
-        </div>
-
-        <div class="post-section">
-            <h2><a href="{% url 'post_category' 'Q&A' %}">Q&A</a></h2>
-            <ul>
-                {% for post in top_qa_posts %}
-                <li>
-                    <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
-                    <p>{{ post.content|truncatechars:100 }}</p>
-                    <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }}</p>
-                    {{ post.created_at|timesince }} 전
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="post-section">
-        <h2><a href="{% url 'post_category' '라운지' %}">라운지</a></h2>
-            <ul>
-                {% for post in top_lounge_posts %}
-                <li>
-                    <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
-                    <p>{{ post.content|truncatechars:100 }}</p>
-                    <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }} </p>
-                    {{ post.created_at|timesince }} 전
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="post-section">
-        <h2><a href="{% url 'post_category' 'AMA' %}">AMA</a></h2>
-            <ul>
-                {% for post in top_ama_posts %}
-                    <li>
-                        <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
-                        {% if post.photo %}
-                            <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="fixed-size">
-                        {% else %}
-                             <p>사진 없음</p>
-                        {% endif %}
-                        <p>{{ post.hashtags }}</p>
-                        <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }}</p>
-                        {{ post.created_at|timesince }} 전
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div id="wrap">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__menu">
+                <a class="header__menu__item homeText" href="#home">MUSE</a>
+                <a class="header__menu__item" href="{% url 'home:advice_list' %}">소식</a>
+                <a class="header__menu__item" href="#mypage">마이페이지</a>
+                <a class="header__menu__item" href="#community">커뮤니티</a>
+            </div>
+            <div class="header__menu">
+                <a class="header__menu__item" href="#login">로그인</a>
+                <a class="header__menu__item" href="#join">회원가입</a>
+            </div>
+        </header>
+        <!-- Main -->
+        <main id="main">
+            <!-- Home -->
+            <section id="home">
+                <img class="home__img" src="{% static 'img/home.jpg' %}" alt="home">
+            </section>
+            <!-- Story -->
+            <section id="story">
+                <div class="story__container1">
+                    <div class="story__title">
+                        <h2>선배님의 이야기</h2>
+                    </div>
+                    <div class="story__description">
+                        <p>나의 직무와 관련된 선배님의 경험을 들어보고<br>나의 이야기도 공유해 봅시다.</p>
+                    </div>
+                </div>
+                <div class="story__container2">
+                    <div class="story__container2-1">
+                        <img class="sunbae" src="{% static 'img/sunbae_1.svg' %}" alt="sunbae_1">
+                        <div class="sunbae__description">
+                            <p>"나는 도전을 두려워 하지 않는다"</p>
+                            <p class="job">데이터 서비스 개발자 <span>정다예</span></p>
+                        </div>
+                    </div>
+                    <div class="story__container2-2">
+                        <div>
+                            <div class="sunbae__description2">
+                                <p>"개발자는 젠더와 세대의 갈등 없이<br>평등하게 일할 수 있는 직군"</p>
+                                <p class="job">엔지니어 출신 개발자 <span>송민경</span></p>
+                            </div>
+                            <img class="sunbae__2" src="{% static 'img/sunbae_2.svg' %}" alt="sunbae_2">
+                        </div>
+                    </div>
+                    <div class="story__container2-3">
+                        <img class="sunbae" src="{% static 'img/sunbae_3.svg' %}" alt="sunbae_3">
+                        <div class="sunbae__description">
+                            <p>"SKT에는 개발 역량 넓힐 기회와<br>환경이 열려 있어"</p>
+                            <p class="job">15년차 베테랑 개발자 <span>황아영</span></p>
+                        </div>
+                    </div>
+                    <!-- <div class="write">
+                        <img src="../images/write.svg" alt="write">
+                        <p>여러분도</p>
+                    </div> -->
+                </div>
+            </section>
+            <!-- Community -->
+            <section id="community">
+                <div class="com__container">
+                    <div class="com__title">
+                        <h2>커뮤니티</h2>
+                    </div>
+                </div>
+                <div class="com__description">
+                    <p>커뮤니티 인기글을 둘러 봅시다.</p>
+                    <div class="com__container1">
+                        <img src="{% static 'img/check_circle.svg' %}" alt="check_circle">
+                        <p>&nbsp;사원증 인증이 필요한 서비스입니다.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Q&A -->
+            <div class="ask__container">
+                <div class="board__section">
+                    <div class="board__title">
+                        <h2>Q&A 게시판</h2>
+                    </div>
+                    <div class="post">
+                        <div class="post__title">사회초년생 월급, 대우 이정도면 괜찮은 건지 궁금해요!</div>
+                        <div class="post__content">사대보험, 점심 식사 제공, 자격증 취득 축하금, 생일 선물 제공, 외근 회사 차량...</div>
+                        <div class="divider"></div>
+                        <div class="post__footer">
+                            <div class="post__time">2시간 전</div>
+                            <div class="post__actions">
+                                <span class="heart">34</span>
+                                <span class="comments">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="post__title">사회초년생의 첫 직장, 옳은 선택이었을 지 궁금해요!</div>
+                        <div class="post__content">전공 살려서 온 첫 직장인데, 모두 이직을 고려하는 지, 적성에 맞는 지 궁금해...</div>
+                        <div class="divider"></div>
+                        <div class="post__footer">
+                            <div class="post__time">12시간 전</div>
+                            <div class="post__actions">
+                                <span class="heart">5</span>
+                                <span class="comments">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="post__title">사회초년생의 경제적 독립과 재테크 궁금해요!</div>
+                        <div class="post__content">한달에 월급의 몇 프로를 적립하는 지 궁금하...</div>
+                        <div class="divider"></div>
+                        <div class="post__footer">
+                            <div class="post__time">2일 전</div>
+                            <div class="post__actions">
+                                <span class="heart">12</span>
+                                <span class="comments">4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lounge -->
+            <div class="lounge__container">
+                <div class="board__section">
+                    <div class="board__title">
+                        <h2>라운지 게시판</h2>
+                    </div>
+                    <div class="post">
+                        <div class="post__title">상사가 원래 다 이런거야?</div>
+                        <div class="post__content">세대 간 갈등이나, 젠더 갈등을 겪고 있거나 눈으로 직접 본 적이 있으신가요?</div>
+                        <div class="divider"></div>
+                        <div class="post__footer">
+                            <div class="post__time">2시간 전</div>
+                            <div class="post__actions">
+                                <span class="heart">34</span>
+                                <span class="comments">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="post__title">업무 시작 전 부담감, 업무 스트레스 대처법 공유</div>
+                        <div class="post__content">본격적인 사회생활로 신경써야 할 문제를 맞이했을 때 부담감이 다가오는 것 같...</div>
+                        <div class="divider"></div>
+                        <div class="post__footer">
+                            <div class="post__time">6시간 전</div>
+                            <div class="post__actions">
+                                <span class="heart">12</span>
+                                <span class="comments">6</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="post__title">직장 내 성비 불균형 적응기!</div>
+                        <div class="post__content">저는 여성이 주로 있는 단체에 오래 머물러서 이성과의 사회생활에 적응 시간이...</div>
+                        <div class="divider"></div>
+                        <div class="post__footer">
+                            <div class="post__time">하루 전</div>
+                            <div class="post__actions">
+                                <span class="heart">14</span>
+                                <span class="comments">7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- AMA -->
+            <div class="board__section ama">
+                <div class="board__title">
+                    <h2>AMA 게시판</h2>
+                </div>
+                <div class="ama__post">
+                    <img src="{% static 'img/ama1.svg' %}" alt="AMA Post 1">
+                    <div class="ama__content">
+                        <div class="ama__title">끊임없이 성장을 추구하는 5년차 PM</div>
+                        <div class="ama__tags">#디자인 #UX #트렌드 #Z세대 #ENTP #퇴사<br>#이직 #성장 #여러 회사 경험 많이 해봄</div>
+                    </div>
+                </div>
+                <div class="ama__post">
+                    <img src="{% static 'img/ama2.svg' %}" alt="AMA Post 2">
+                    <div class="ama__content">
+                        <div class="ama__title">2년차 IT 생생한 경험의 소유자</div>
+                        <div class="ama__tags">#스케줄 #ESFJ #기획 #첫 월급 #재미투자 #노트<br>#주말 활용법 #직장문화 #요즘IT #사회초년생</div>
+                    </div>
+                </div>
+                <div class="ama__post">
+                    <img src="{% static 'img/ama3.svg' %}" alt="AMA Post 3">
+                    <div class="ama__content">
+                        <div class="ama__title">(주)00 코리아에 오기까지</div>
+                        <div class="ama__tags">#대학생 #공모전 #해커톤 #스펙 #첫 직장 #월급<br>#포트폴리오 #메일 주소 #자기 관리</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer id="footer"></footer>
     </div>
 </body>
 </html>
