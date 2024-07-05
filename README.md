@@ -32,14 +32,16 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 <br>
 백엔드
 <br>
-![python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white")
+![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 <br>
 기획/디자인
 <br>
 ![gd](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+
 <br>
 <br>
+
 
 ## :smiley_cat:팀원 소개
 <br>
