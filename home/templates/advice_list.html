@@ -163,7 +163,8 @@
                     <br><br>
                     <div class="post-meta__container">
                         <div class="post-meta__container1">
-                            <p class="post-meta--strong">작성자: {{ advice.author.nickname }}</p>
+                            <p class="post-meta--strong">작성자: {{ advice.author.username }}</p>
+                            <p class="post-meta--strong">직업 정보: {{ advice.author.job_info.company_name }} {{ advice.author.job_info.department }} {{ advice.author.job_info.position }} </p>
                             <p class="post-meta--strong">{{ advice.created_at|date:"Y-m-d H:i:s" }}</p>
                         </div>
                         <div class="post-meta__container2">   
