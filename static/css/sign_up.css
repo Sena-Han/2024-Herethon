@@ -99,12 +99,16 @@ button {
 
 #user_username,
 #user_password,
+#user_password_re,
 #user_email,
 #user_name,
 #user_phonenum,
 #user_nickname {
   width: 450px;
   margin-bottom: 5px;
+}
+#user_password {
+  margin-bottom: 8px;
 }
 
 #user_birthY {
