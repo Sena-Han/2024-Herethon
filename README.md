@@ -34,6 +34,7 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white)
 
  백엔드
+ ![python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white")
 ![django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 
  기획/디자인
@@ -42,12 +43,11 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 <br>
 
 ## :smiley_cat:팀원 소개
+<br>
 
 |            | 기획/디자인 | 프론트엔드 | 백엔드 |
 |------------|-------------|-------------|--------|
-| **이름**   | 조정인      | 김성연      | 이예림 |
-|            |             | 정서영      | 서문지 |
-|            |             |             | 한세나 |
+| **이름**   | 조정인      | 김성연, 정서영 | 이예림, 서문지, 한세나 |
 | **담당 기능** | 서비스 디자인/발표 | 서비스 구현  | 서비스 구현 |
 
 
@@ -56,7 +56,7 @@ Muse는 MZ세대 여성들 중 사회초년생을 주요 타겟으로 합니다.
 
 
 ## 🔗개발환경에서의 실행 방법
-```
+```<div align=center>
 $ cd 2024-Herethon-12
 $ python -m venv myvenv
 $ source myvenv/Scripts/activate
@@ -66,4 +66,6 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 $ python manage.py runserver
 ```
+</div>
+
 </div>
