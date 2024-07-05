@@ -1,0 +1,133 @@
+body {
+  margin-top: 8vw;
+}
+
+.leftpage,
+.rightpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settext {
+  font-size: 25px;
+  font-weight: 400;
+
+  margin-bottom: 20px;
+}
+
+.setForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+}
+
+.leftpage {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputphoto {
+  width: 400px;
+  height: 300px;
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.setForm label {
+  &:hover {
+    cursor: pointer;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 290px;
+}
+
+img {
+  width: 140px;
+  height: 140px;
+}
+
+#user_photo {
+  display: none;
+}
+
+#saveBtn {
+  color: white;
+  text-decoration: none;
+
+  width: 210px;
+  height: 50px;
+  background-color: #414141;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.text {
+  font-size: 16px;
+  margin: 5px 10px;
+}
+
+input,
+select,
+button {
+  height: 40px;
+  border: 1px solid #b8b8b8;
+  border-radius: 10px;
+  font-size: 16px;
+  padding-left: 15px;
+  outline: none;
+}
+
+select,
+button {
+  height: 44px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#user_password,
+#user_email,
+#user_name,
+#user_phonenum {
+  width: 450px;
+  margin-bottom: 5px;
+}
+
+#user_password_re {
+  width: 310px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#user_password_ch {
+  width: 130px;
+  padding: 0;
+}
+
+#user_birthY {
+  width: 180px;
+  margin-bottom: 5px;
+}
+
+#user_birthM,
+#user_birthD {
+  width: 121px;
+}
+
+#user_startY,
+#user_endY {
+  width: 213px;
+  margin-bottom: 5px;
+}
