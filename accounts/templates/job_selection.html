@@ -9,67 +9,77 @@
   </head>
   <body>
     <div class="text">직무 선택</div>
-    <form>
+    <form method="POST">
+      {% csrf_token %}
       <div class="colset">
         <div class="left">
-          <input type="radio" id="경영/관리" name="job" />
+          <input type="radio" id="경영/관리" name="job_category" />
           <label for="경영/관리">경영/관리</label>
 
-          <input type="radio" id="IT/인터넷" name="job" />
+          <input type="radio" id="IT/인터넷" name="job_category" />
           <label for="IT/인터넷">IT/인터넷</label>
 
-          <input type="radio" id="연구개발/설계" name="job" />
-          <label for="연규개발/설계">연구개발/설계</label>
+          <input type="radio" id="연구개발/설계" name="job_category" />
+          <label for="연구개발/설계">연구개발/설계</label>
 
-          <input type="radio" id="마케팅/PR" name="job" />
+          <input type="radio" id="마케팅/PR" name="job_category" />
           <label for="마케팅/PR">마케팅/PR</label>
 
-          <input type="radio" id="전문직" name="job" />
+          <input type="radio" id="전문직" name="job_category" />
           <label for="전문직">전문직</label>
 
-          <input type="radio" id="디자인" name="job" />
+          <input type="radio" id="디자인" name="job_category" />
           <label for="디자인">디자인</label>
 
-          <input type="radio" id="방송/언론" name="job" />
+          <input type="radio" id="방송/언론" name="job_category" />
           <label for="방송/언론">방송/언론</label>
 
-          <input type="radio" id="교육 전문직" name="job" />
+          <input type="radio" id="교육 전문직" name="job_category" />
           <label for="교육 전문직">교육 전문직</label>
 
-          <input type="radio" id="의료 전문직" name="job" />
+          <input type="radio" id="의료 전문직" name="job_category" />
           <label for="의료 전문직">의료 전문직</label>
         </div>
 
         <div class="right">
-          <input type="radio" id="영업" name="job" />
+          <input type="radio" id="영업" name="job_category" />
           <label for="영업">영업</label>
 
-          <input type="radio" id="건설" name="job" />
+          <input type="radio" id="건설" name="job_category" />
           <label for="건설">건설</label>
 
-          <input type="radio" id="생산/제조" name="job" />
+          <input type="radio" id="생산/제조" name="job_category" />
           <label for="생산/제조">생산/제조</label>
 
-          <input type="radio" id="금융전문직" name="job" />
+          <input type="radio" id="금융전문직" name="job_category" />
           <label for="금융전문직">금융전문직</label>
 
-          <input type="radio" id="생활/서비스" name="job" />
+          <input type="radio" id="생활/서비스" name="job_category" />
           <label for="생활/서비스">생활/서비스</label>
 
-          <input type="radio" id="문화/예술" name="job" />
+          <input type="radio" id="문화/예술" name="job_category" />
           <label for="문화/예술">문화/예술</label>
 
-          <input type="radio" id="조사/분석" name="job" />
+          <input type="radio" id="조사/분석" name="job_category" />
           <label for="조사/분석">조사/분석</label>
 
-          <input type="radio" id="공무원/정치인" name="job" />
+          <input type="radio" id="공무원/정치인" name="job_category" />
           <label for="공무원/정치인">공무원/정치인</label>
 
-          <input type="radio" id="기타전문직" name="job" />
-          <label for="기타 전문직">기타전문직</label>
+          <input type="radio" id="기타전문직" name="job_category" />
+          <label for="기타전문직">기타전문직</label>
         </div>
       </div>
       <button type="submit">Save</button>
+
+
+      <div class="messages">
+        {% for message in messages %}
+        <div class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
     </form>
   </body>
 </html>
