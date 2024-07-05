@@ -8,7 +8,15 @@
     <a href="{% url 'home:home' %}">뒤로가기</a>
 
     <h1>Advice List</h1>
+
     <a href="{% url 'home:advice_write' %}">새 조언 작성</a>
+    <div class="messages">
+        {% for message in messages %}
+            {% if 'permission' in message.tags %}
+                <div class="message error permission">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
     <form action="{% url 'home:advice_list' %}" method="get" class="category-filter">
         <select name="category">
             <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
@@ -30,12 +38,11 @@
     </form>
     <div class="messages">
         {% for message in messages %}
-            <div class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
-                {{ message }}
-            </div>
+            {% if 'search' in message.tags %}
+                <div class="message error search">{{ message }}</div>
+            {% endif %}
         {% endfor %}
     </div>
-
     {% if advices %}
         <ul>
             {% for advice in advices %}
@@ -54,6 +61,14 @@
         </ul>
     {% endif %}
     <script>
+        // 1초 후 메시지 숨기기
+        setTimeout(function() {
+            var messages = document.querySelectorAll('.messages .message.permission');
+            messages.forEach(function(message) {
+                message.style.display = 'none';
+            });
+        }, 1000);
+
         // 페이지를 나갈 때 메시지 리셋
         window.addEventListener('beforeunload', function() {
             var messages = document.querySelectorAll('.messages .message');
