@@ -1,7 +1,7 @@
 from django.urls import path
 
 from home.views import home
-from .views import signup_view, email_verification_view, verify_code_view, login, resend_code_view, job_selection_view, welcome_view
+from .views import signup_view, email_verification_view, verify_code_view, login, resend_code_view, job_selection_view, welcome_view, mypage_view
 
 urlpatterns = [
     path('signup/', signup_view, name='signup'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('job-selection/', job_selection_view, name='job_selection'),
     path('welcome/', welcome_view, name='welcome'),
     path('home/', home, name='home'),
+    path('mypage/', mypage_view, name='mypage'),
 ]

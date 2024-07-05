@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            float: left;
+            width: 20%;
+            background-color: #f8f8f8;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100vh;
+        }
+        .sidebar h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul ul {
+            margin-left: 10px;
+        }
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        .sidebar li a {
+            text-decoration: none;
+            color: #333;
+        }
+        .content {
+            float: left;
+            width: 75%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-info {
+            margin-left: 20px;
+        }
+        .profile-info h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .profile-info p {
+            margin: 5px 0;
+        }
+        .profile-info button {
+            background-color: #e4b1ab;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+        }
+        .form-section {
+            margin-top: 20px;
+        }
+        .form-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-section label {
+            margin-bottom: 5px;
+        }
+        .form-section input {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-section button {
+            background-color: #e4b1ab;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>My Page</h2>
+        <ul>
+            <li>자기소개</li>
+            <li>활동
+                <ul>
+                    <li><a href="#">작성한 글 보기</a></li>
+                    <li><a href="#">스크랩한 글 보기</a></li>
+                    <li><a href="#">작성한 댓글 보기</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="profile-section">
+            <img src="{{ user.profile_image.url }}" alt="Profile Image" class="profile-image">
+            <div class="profile-info">
+                <h2>{{ user.nickname }}</h2>
+                <p>직무: {{ user.job_category }}</p>
+                <button onclick="document.getElementById('edit-profile-form').style.display='block'">Edit</button>
+            </div>
+        </div>
+        <div id="edit-profile-form" class="form-section" style="display:none;">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+            </form>
+        </div>
+        <div class="form-section">
+            <h2>재직 정보</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label>{{ form.is_employed.label_tag }}</label> {{ form.is_employed }}
+                <label>{{ form.start_year.label_tag }}</label> {{ form.start_year }}
+                <label>{{ form.end_year.label_tag }}</label> {{ form.end_year }}
+                <label>{{ form.company_name.label_tag }}</label> {{ form.company_name }}
+                <label>{{ form.position.label_tag }}</label> {{ form.position }}
+                <label>{{ form.department.label_tag }}</label> {{ form.department }}
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

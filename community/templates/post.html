@@ -15,7 +15,7 @@
             max-width: 800px;
             margin: auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #FFFAEC;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             position: relative; /* 홈 버튼을 절대 위치로 배치하기 위해 추가 */
@@ -27,7 +27,7 @@
         a.write-post {
             display: inline-block;
             margin-bottom: 20px;
-            background-color: rgb(131, 166, 204);
+            background-color: #F4D3C0;
             color: #fff;
             padding: 10px 20px;
             border-radius: 4px;
@@ -35,7 +35,7 @@
             text-align: center;
         }
         a.write-post:hover {
-            background-color: #0056b3;
+            background-color: #ff9d64
         }
         .top-bar {
             display: flex;
@@ -47,20 +47,24 @@
             margin: 0;
         }
         .category-filter select,
-        .category-filter button[type="submit"] {
+        .category-filter button[type="submit"],
+        .search-form select,
+        .search-form button[type="submit"] {
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffffff;
             border-radius: 4px;
             font-size: 14px;
             margin-left: 10px;
         }
-        .category-filter button[type="submit"] {
-            background-color: rgb(131, 166, 204);
+        .category-filter button[type="submit"],
+        .search-form button[type="submit"] {
+            background-color: #F4D3C0;
             color: #fff;
             cursor: pointer;
         }
-        .category-filter button[type="submit"]:hover {
-            background-color: #0056b3;
+        .category-filter button[type="submit"]:hover,
+        .search-form button[type="submit"]:hover {
+            background-color: #ff9d64;
         }
         ul {
             list-style: none;
@@ -69,7 +73,7 @@
         li {
             margin-bottom: 20px;
             padding: 20px;
-            background-color: #f1f1f1;
+            background-color: #ffffff;
             border-radius: 8px;
             position: relative;
         }
@@ -79,8 +83,8 @@
         p {
             margin: 5px 0;
         }
-        img.fixed-size {
-            width: 100%;
+        .fixed-size {
+            width: 1000px;
             max-width: 100px;
             height: auto;
             display: block;
@@ -96,18 +100,36 @@
             top: 20px;
             right: 20px;
         }
+        .post__title{
+            text-decoration: none;
+            color: #303030;
+        }
+        .post-meta__container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .post-meta_likes {
+            margin-top: 50px;
+        }
+        .search-form input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="home-button">
             <form action="{% url 'home' %}">
-                <button type="submit">Home</button>
+                <!-- <button type="submit">Home</button> -->
             </form>
         </div>
-        <h1>Post</h1>
+        <h1>커뮤니티</h1>
         <div class="top-bar">
-            <a href="{% url 'postwrite' %}" class="write-post">Write</a>
+            <a href="{% url 'postwrite' %}" class="write-post">작성하기</a>
             <form action="{% url 'post' %}" method="get" class="category-filter">
                 <select name="category">
                     <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
@@ -131,17 +153,25 @@
         <ul>
             {% for post in posts %}
                 <li>
-                    <h2><a href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
+                    <h2><a class="post__title" href="{% url 'postdetail' post.pk %}">{{ post.title }}</a></h2>
                     <br>
                     {% if post.photo %}
                         <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="fixed-size">
                     {% endif %}
                     <p>{{ post.content|truncatechars:45 }}</p>
                     <br><br>
-                    <p class="post-meta">Category: {{ post.category.name }}</p>
-                    <p class="post-meta">Nickname: {{ post.author.nickname }}</p>
-                    <p class="post-meta">{{ post.created_at|date:"Y-m-d H:i:s" }}</p>
-                    <p class="post-meta">Likes: {{ post.total_likes }} | Comments: {{ post.comments.count }}</p>
+                    <div class="post-meta__container">
+                        <div class="post-meta__container1">
+                            {% if not selected_category %}
+                                <p class="post-meta--strong">카테고리: {{ post.category.name }}</p>
+                            {% endif %}
+                            <p class="post-meta--strong">작성자: {{ post.author.nickname }}</p>
+                            <p class="post-meta--strong">{{ post.created_at|date:"Y-m-d H:i:s" }}</p>
+                        </div>
+                        <div class="post-meta__container2">   
+                            <p class="post-meta_likes">좋아요: {{ post.total_likes }} | 댓글: {{ post.comments.count }}</p>
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

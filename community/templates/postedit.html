@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Post</title>
+    <title>글 수정</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,7 +29,7 @@
             margin-top: 20px;
         }
         form button {
-            background-color: rgb(131, 166, 204);
+            background-color: #F4D3C0;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -41,7 +41,7 @@
             width: 100%;
         }
         form button:hover {
-            background-color: #0056b3;
+            background-color: #ff9d64;
         }
         input[type="text"],
         textarea,
@@ -80,7 +80,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Edit Post</h1>
+        <h1>글 수정</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-fields">

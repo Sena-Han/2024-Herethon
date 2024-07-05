@@ -3,54 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write Post</title>
+    <title>글 쓰기</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         .container {
             max-width: 600px;
-            width: 100%;
-            background-color: #fff;
+            margin: auto;
             padding: 20px;
+            background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
         h1 {
             text-align: center;
-            margin-bottom: 20px;
         }
         form {
-            display: flex;
-            flex-direction: column;
+            margin-top: 20px;
         }
-        label {
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-weight: bold;
+        form .form-fields {
+            margin-top: 20px;
         }
-        input[type="text"],
-        textarea,
-        input[type="file"] {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        button {
-            background-color: rgb(131, 166, 204);
+        form button {
+            background-color: #F4D3C0;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -58,11 +37,28 @@
             cursor: pointer;
             font-size: 16px;
             margin-top: 20px;
-            align-self: center;
+            display: block;
+            width: 100%;
         }
-        button:hover {
-            background-color: #0056b3;
+        form button:hover {
+            background-color: #ff9d64;
         }
+        input[type="text"],
+        textarea,
+        input[type="file"],
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        textarea {
+            resize: vertical;
+        }
+           
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -84,7 +80,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Write Post</h1>
+        <h1>글 쓰기</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}

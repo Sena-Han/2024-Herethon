@@ -10,5 +10,12 @@ class CustomUser(AbstractUser):
     email_verified = models.BooleanField(default=False)
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
     job_type = models.CharField(max_length=50, null=True, blank=True)
+
+class MyPage(models.Model):
     start_year = models.IntegerField(null=True, blank=True)
     end_year = models.IntegerField(null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    is_employed = models.BooleanField(default=False)
+    company_name = models.CharField(max_length=100, null=True, blank=True)
+    position = models.CharField(max_length=100, null=True, blank=True)
+    department = models.CharField(max_length=100, null=True, blank=True)
