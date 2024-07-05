@@ -76,21 +76,25 @@ def signup_view(request):
             user = form.save(commit=False)
             user.email_verified = True
             user.save()
-            form.save()
+            auth_login(request, user)  # 자동 로그인 처리
             return redirect('job_selection')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-@login_required
+
 def job_selection_view(request):
+    if not request.user.is_authenticated:  # 사용자 인증 여부 확인
+        messages.error(request, '로그인이 필요합니다.')
+        return redirect('login')
+    
     if request.method == 'POST':
         job_category = request.POST.get('job_category')
         if job_category:
             user = request.user
-            user.job_category = job_category
+            user.job_type = job_category
             user.save()
-            return redirect('index')
+            return redirect('welcome')
         else:
             messages.error(request, 'All fields are required.')
     return render(request, 'job_selection.html', {'job_categories': JOB_CATEGORIES})
