@@ -39,7 +39,7 @@
             <small>작성일: {{ post.created_at }}</small>
             <br>
             <hr>
-            <a href="{% url 'postdetail' pk=post.pk %}">상세보기</a>
+            <a href="{% url 'postdetail' pk=post.pk %}">상세 보기</a>
         </div>
     {% empty %}
         <p>작성한 글이 없습니다.</p>

@@ -7,31 +7,22 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             width: 900px;
             margin: 0 auto;
         }
-        .content {
-            width: 75%;
-            margin: auto;
-            padding: 20px;
-            box-sizing: border-box;
-        }
         .advice {
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             border-radius: 5px;
             background-color: #FFFAEC;
         }
-        .advice h3 {
-            margin: 0 0 10px 0;
-        }
         .advice p {
-            margin: 5px 0;
+            margin-bottom: 10px;
         }
-        h1:hover {
-            color: #FFFAEC;
+        .advice small {
+            color: #666;
         }
     </style>
 </head>
@@ -42,10 +33,11 @@
             <div class="advice">
                 <h3>{{ advice.title }}</h3>
                 <p>{{ advice.content|truncatewords:20 }}</p>
-                <a href="{% url 'home:advice_detail' advice.id %}">Read More</a>
+                <hr>
+                <a href="{% url 'home:advice_detail' advice.id %}">상세 보기</a>
             </div>
         {% empty %}
-            <p>No scrapped advices found.</p>
+            <p>스크랩한 글이 없습니다.</p>
         {% endfor %}
     </div>
 </body>
