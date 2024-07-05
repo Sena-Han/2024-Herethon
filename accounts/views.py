@@ -128,18 +128,25 @@ def login(request):
 @login_required
 def mypage_view(request):
     try:
-        my_page = request.user.mypage  # 유저의 MyPage 인스턴스 가져오기
+        my_page = request.user.job_info
     except MyPage.DoesNotExist:
-        my_page = MyPage(user=request.user)  # 없으면 새로 생성
-    
+        my_page = MyPage()
+
     if request.method == 'POST':
         form = MyPageForm(request.POST, request.FILES, instance=my_page)
         if form.is_valid():
-            form.save()
+            my_page = form.save(commit=False)
+            my_page.save()
+
+            # job info 업데이트 하기
+            request.user.job_info = my_page
+            request.user.save()
+
             messages.success(request, 'Profile updated successfully.')
             return redirect('mypage')
     else:
         form = MyPageForm(instance=my_page)
+
     return render(request, 'mypage.html', {'form': form})
 
 def mypage_post(request):
