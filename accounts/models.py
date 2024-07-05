@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     job_type = models.CharField(max_length=50, null=True, blank=True)
 
 class MyPage(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     start_year = models.IntegerField(null=True, blank=True)
     end_year = models.IntegerField(null=True, blank=True)
     profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)

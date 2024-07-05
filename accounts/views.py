@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.forms import MyPageForm
+from .models import CustomUser, MyPage
 
 
 
@@ -121,15 +122,20 @@ def login(request):
         form = AuthenticationForm() 
     return render(request, 'login.html', {'form': form})
 
-#@login_required
+@login_required
 def mypage_view(request):
+    try:
+        my_page = request.user.mypage  # 유저의 MyPage 인스턴스 가져오기
+    except MyPage.DoesNotExist:
+        my_page = MyPage(user=request.user)  # 없으면 새로 생성
+    
     if request.method == 'POST':
-        form = MyPageForm(request.POST, request.FILES, instance=request.user)
+        form = MyPageForm(request.POST, request.FILES, instance=my_page)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully.')
             return redirect('mypage')
     else:
-        form = MyPageForm(instance=request.user)
+        form = MyPageForm(instance=my_page)
     return render(request, 'mypage.html', {'form': form})
 
