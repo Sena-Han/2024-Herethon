@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/here_login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/herelogin.css' %}" />
     <title>Login</title>
   </head>
 
@@ -12,8 +12,8 @@
     <div class="loginData">
       <form class="loginForm" method="post">
         {% csrf_token %}
-        <input type="text" name="username" id="user_email" placeholder="아이디를 입력하세요." />
-        <input type="password" name="password" id="user_password" placeholder="비밀번호를 입력하세요." />
+        <input type="text" name="username" id="id_username" placeholder="아이디를 입력하세요." />
+        <input type="password" name="password" id="id_password" placeholder="비밀번호를 입력하세요." />
         <button type="submit" id="loginBtn">로그인</button>
       </form>
     </div>
