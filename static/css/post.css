@@ -1,0 +1,113 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #FFFAEC;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative; /* 홈 버튼을 절대 위치로 배치하기 위해 추가 */
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+a.write-post {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #F4D3C0;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+}
+a.write-post:hover {
+    background-color: #ff9d64
+}
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+form {
+    margin: 0;
+}
+.category-filter select,
+.category-filter button[type="submit"],
+.search-form select,
+.search-form button[type="submit"] {
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.category-filter button[type="submit"],
+.search-form button[type="submit"] {
+    background-color: #F4D3C0;
+    color: #fff;
+    cursor: pointer;
+}
+.category-filter button[type="submit"]:hover,
+.search-form button[type="submit"]:hover {
+    background-color: #ff9d64;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: relative;
+}
+h2 {
+    margin: 0 0 10px;
+}
+p {
+    margin: 5px 0;
+}
+.fixed-size {
+    width: 1000px;
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+.post-meta {
+    color: #555;
+    font-size: 14px;
+}
+.home-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.post__title{
+    text-decoration: none;
+    color: #303030;
+}
+.post-meta__container {
+    display: flex;
+    justify-content: space-between;
+}
+.post-meta_likes {
+    margin-top: 50px;
+}
+.search-form input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 10px;
+}
