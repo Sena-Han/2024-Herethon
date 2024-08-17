@@ -1,33 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>My Posts</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            width: 900px;
-            margin: 0 auto;
-        }
-        .post {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            background-color: #FFFAEC;
-        }
-        .post h3 {
-            margin-top: 0;
-        }
-        .post p {
-            margin-bottom: 10px;
-        }
-        .post small {
-            color: #666;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/post_list.css' %}" />
 </head>
 <body>
     
